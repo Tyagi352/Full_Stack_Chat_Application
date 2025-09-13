@@ -21,7 +21,6 @@ const ChatContainer = () => {
 
   useEffect(() => {
     getMessages(selectedUser._id);
-
     subscribeToMessages();
 
     return () => unsubscribeFromMessages();
@@ -54,7 +53,8 @@ const ChatContainer = () => {
             className={`chat ${message.senderId === authUser._id ? "chat-end" : "chat-start"}`}
             ref={messageEndRef}
           >
-            <div className=" chat-image avatar">
+            {/* Avatar */}
+            <div className="chat-image avatar">
               <div className="size-10 rounded-full border">
                 <img
                   src={
@@ -66,20 +66,50 @@ const ChatContainer = () => {
                 />
               </div>
             </div>
-            <div className="chat-header mb-1">
-              <time className="text-xs opacity-50 ml-1">
-                {formatMessageTime(message.createdAt)}
-              </time>
-            </div>
-            <div className="chat-bubble flex flex-col">
-              {message.image && (
-                <img
-                  src={message.image}
-                  alt="Attachment"
-                  className="sm:max-w-[200px] rounded-md mb-2"
-                />
-              )}
-              {message.text && <p>{message.text}</p>}
+
+            {/* Chat content */}
+            <div>
+              <div className="chat-header mb-1">
+                <time className="text-xs opacity-50 ml-1">
+                  {formatMessageTime(message.createdAt)}
+                </time>
+              </div>
+
+              <div className="chat-bubble flex flex-col max-w-xs sm:max-w-md">
+                {/* 🖼️ Image */}
+{message.image && (
+  <a
+    href={message.image}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <img
+      src={message.image}
+      alt="Attachment"
+      className="rounded-md mb-2 max-h-52 object-cover cursor-pointer hover:opacity-90 transition"
+    />
+  </a>
+)}
+
+{/* 🎥 Video */}
+{message.video && (
+  <a
+    href={message.video}
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <video
+      src={message.video}
+      controls
+      className="rounded-md mb-2 max-h-60 w-full object-cover cursor-pointer hover:opacity-90 transition"
+    />
+  </a>
+)}
+
+
+                {/* 📝 Text */}
+                {message.text && <p>{message.text}</p>}
+              </div>
             </div>
           </div>
         ))}
@@ -89,4 +119,5 @@ const ChatContainer = () => {
     </div>
   );
 };
+
 export default ChatContainer;

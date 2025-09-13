@@ -37,15 +37,31 @@ export const getMessages = async (req, res) => {
 
 export const sendMessage = async (req, res) => {
   try {
-    const { text, image } = req.body;
+    const { text, image, video } = req.body;
     const { id: receiverId } = req.params;
     const senderId = req.user._id;
 
-    let imageUrl;
-    if (image) {
-      // Upload base64 image to cloudinary
-      const uploadResponse = await cloudinary.uploader.upload(image);
-      imageUrl = uploadResponse.secure_url;
+    let imageUrl, videoUrl;
+
+    if (image || video) {
+      try {
+        const file = image || video;
+        // Set resource_type to auto so Cloudinary can handle both images and videos
+        const uploadResponse = await cloudinary.uploader.upload(file, {
+          resource_type: "auto",
+          chunk_size: 6000000, // 6MB chunks for better upload handling
+          timeout: 60000, // 60 seconds timeout for larger files
+        });
+        
+        if (image) {
+          imageUrl = uploadResponse.secure_url;
+        } else if (video) {
+          videoUrl = uploadResponse.secure_url;
+        }
+      } catch (uploadError) {
+        console.error("Error uploading file to Cloudinary:", uploadError);
+        return res.status(400).json({ error: "File upload failed. Please try a smaller file or try again later." });
+      }
     }
 
     const newMessage = new Message({
@@ -53,6 +69,8 @@ export const sendMessage = async (req, res) => {
       receiverId,
       text,
       image: imageUrl,
+      video: videoUrl,
+
     });
 
     await newMessage.save();
