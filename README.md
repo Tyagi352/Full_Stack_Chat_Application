@@ -1,42 +1,31 @@
-# ✨ Full Stack Realtime Chat App ✨
+# 💬 Full Stack Chat Application
 
-![Demo App](/frontend/public/screenshot-for-readme.png)
+A real-time chat application built with **React, Node.js, Express, and Socket.IO**.  
+Users can send and receive instant messages, see who’s online, and enjoy a smooth chat experience.
 
-[Video Tutorial on Youtube](https://youtu.be/ntKkVrQqBYY)
+---
 
-Highlights:
+## 🚀 Features
+- Real-time messaging with **Socket.IO**
+- User authentication (login & signup)
+- Online/offline user status
+- Responsive UI with Tailwind CSS
+- MongoDB database for storing user and chat data
+- Secure password hashing with bcrypt
 
-- 🌟 Tech stack: MERN + Socket.io + TailwindCSS + Daisy UI
-- 🎃 Authentication && Authorization with JWT
-- 👾 Real-time messaging with Socket.io
-- 🚀 Online user status
-- 👌 Global state management with Zustand
-- 🐞 Error handling both on the server and on the client
-- ⭐ At the end Deployment like a pro for FREE!
-- ⏳ And much more!
+---
 
-### Setup .env file
+## 🛠️ Tech Stack
+**Frontend:** React, Tailwind CSS  
+**Backend:** Node.js, Express.js  
+**Database:** MongoDB  
+**Real-time:** Socket.IO  
 
-```js
-MONGODB_URI=...
-PORT=5001
-JWT_SECRET=...
+---
 
-CLOUDINARY_CLOUD_NAME=...
-CLOUDINARY_API_KEY=...
-CLOUDINARY_API_SECRET=...
+## 📂 Project Setup
 
-NODE_ENV=development
-```
-
-### Build the app
-
-```shell
-npm run build
-```
-
-### Start the app
-
-```shell
-npm start
-```
+### 1. Clone the repository
+```bash
+git clone https://github.com/Tyagi352/Full_Stack_Chat_Application.git
+cd Full_Stack_Chat_Application
