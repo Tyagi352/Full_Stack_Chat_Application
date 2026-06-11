@@ -39,7 +39,7 @@ export const sendMessage = async (req, res) => {
   try {
     const { text, image, video } = req.body;
     const { id: receiverId } = req.params;
-    const senderId = req.user._id;
+    const senderId = req.user._id;  
 
     let imageUrl, videoUrl;
 
